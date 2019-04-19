@@ -79,6 +79,7 @@ namespace NzbDrone.Mono.Disk
         {
             return _procMountProvider.GetMounts()
                                      .Concat(GetDriveInfoMounts()
+                                                 .Where(d => !d.Name.StartsWith("/snap/"))
                                                  .Select(d => new DriveInfoMount(d, FindDriveType.Find(d.DriveFormat)))
                                                  .Where(d => d.DriveType == DriveType.Fixed ||
                                                              d.DriveType == DriveType.Network ||
